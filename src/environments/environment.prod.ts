@@ -1,3 +1,6 @@
+import { keys } from './environments.keys';
+
 export const environment = {
-  production: true
+  openWeatherApi: "https://api.openweathermap.org/data/2.5/weather",
+  openWeatherApiKey: keys.openWeatherApiKey
 };
