@@ -13,7 +13,11 @@ export class OpenWeatherService {
 
   constructor(private http: HttpClient) { }
 
-  getExample(): Observable<OpenWeather> {
-    return this.http.get<OpenWeather>(environment.openWeatherApi + '?q=Puebla' + '&appid=' + environment.openWeatherApiKey);
+  getWeatherByName(city: String): Observable<OpenWeather> {
+    return this.http.get<OpenWeather>(environment.openWeatherApi + '?q=' + city + '&appid=' + environment.openWeatherApiKey);
+  }
+
+  getWeatherByCoordinates(lat: number, lon: number): Observable<OpenWeather> {
+    return this.http.get<OpenWeather>(environment.openWeatherApi + '?lat=' + lat + '&lon=' + lon + '&appid=' + environment.openWeatherApiKey);
   }
 }

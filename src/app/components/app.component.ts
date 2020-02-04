@@ -12,24 +12,36 @@ import { OpenWeatherService } from '../services/OpenWeatherService/open-weather.
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'ng-wthr';
   openWeather: OpenWeather;
 
   constructor(private openWeatherService: OpenWeatherService) {}
 
   ngOnInit() {
-    this.showExample();
+    this.getLocation();
   }
 
-  showExample() {
-    this.openWeatherService.getExample()
+  getLocation(): void {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position);
+        let longitude = position.coords.longitude;
+        let latitude = position.coords.latitude;
+        this.openWeatherService.getWeatherByCoordinates(longitude, latitude)
+          .subscribe(
+            (data: OpenWeather) => this.openWeather = data,
+            error => console.log("No support for geolocation")
+          );
+      });
+    } else {
+      console.log("No support for geolocation");
+    }
+  }
+
+  getWeather(city: String): void {
+    this.openWeatherService.getWeatherByName(city)
       .subscribe(
         (data: OpenWeather) => this.openWeather = data,
-        error => console.error("Error")
+        error => console.error("City doesnt found")
       );
-  }
-
-  printExample() {
-    console.log(this.openWeather);
   }
 }
