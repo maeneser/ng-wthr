@@ -23,13 +23,14 @@ export class AppComponent implements OnInit {
   getLocation(): void {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position);
+        console.log("Position", position);
         let longitude = position.coords.longitude;
         let latitude = position.coords.latitude;
-        this.openWeatherService.getWeatherByCoordinates(longitude, latitude)
+        this.openWeatherService.getWeatherByCoordinates(latitude, longitude)
           .subscribe(
             (data: OpenWeather) => this.openWeather = data,
-            error => console.log("No support for geolocation")
+            (err) => console.error("Error from service", err),
+            () => console.log("Weather", this.openWeather)
           );
       });
     } else {
@@ -41,7 +42,8 @@ export class AppComponent implements OnInit {
     this.openWeatherService.getWeatherByName(city)
       .subscribe(
         (data: OpenWeather) => this.openWeather = data,
-        error => console.error("City doesnt found")
+        () => console.warn("404"),
+        () => console.log("Weather", this.openWeather)
       );
   }
 }

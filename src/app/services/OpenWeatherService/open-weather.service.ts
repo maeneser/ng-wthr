@@ -14,10 +14,14 @@ export class OpenWeatherService {
   constructor(private http: HttpClient) { }
 
   getWeatherByName(city: String): Observable<OpenWeather> {
+    console.log("From service", city);
+    environment.openWeatherApi + '?q=' + city + '&appid=' + environment.openWeatherApiKey
     return this.http.get<OpenWeather>(environment.openWeatherApi + '?q=' + city + '&appid=' + environment.openWeatherApiKey);
   }
 
   getWeatherByCoordinates(lat: number, lon: number): Observable<OpenWeather> {
+    console.log("From service", "Latitude", lat, "Longitde", lon);
+    console.log("URL", environment.openWeatherApi + '?lat=' + lat + '&lon=' + lon + '&appid=' + environment.openWeatherApiKey);
     return this.http.get<OpenWeather>(environment.openWeatherApi + '?lat=' + lat + '&lon=' + lon + '&appid=' + environment.openWeatherApiKey);
   }
 }
