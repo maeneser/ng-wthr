@@ -1,4 +1,4 @@
-import { Coord } from './coord';
+import { Coord } from '../General/coord';
 import { Weather } from './weather';
 import { Main } from './main';
 import { Wind } from './wind';
@@ -8,7 +8,7 @@ import { Sys } from './sys';
 export interface OpenWeather {
     coord: Coord;
     weather: Array<Weather>;
-    base: String;
+    base: string;
     main: Main;
     wind: Wind;
     clouds: Clouds;
@@ -16,6 +16,6 @@ export interface OpenWeather {
     sys: Sys;
     timezone: number;
     id: number;
-    name: String;
+    name: string;
     cod: number;
 }

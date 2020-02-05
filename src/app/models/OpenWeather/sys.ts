@@ -2,7 +2,7 @@ export interface Sys {
     type: number;
     id: number;
     message: number;
-    country: String;
+    country: string;
     sunrise: number;
     sunset: number;
 }

@@ -1,6 +1,6 @@
 export interface Weather {
     id: number;
-    main; String;
-    description: String;
-    icon: String;
+    main; string;
+    description: string;
+    icon: string;
 }

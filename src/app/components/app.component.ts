@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 // Models
+import { City } from '../models/city';
 import { OpenWeather } from '../models/OpenWeather/open-weather';
 
 // Services
+import { CitiesService } from '../services/CitiesService/cities.service';
 import { OpenWeatherService } from '../services/OpenWeatherService/open-weather.service';
 
 @Component({
@@ -11,21 +14,23 @@ import { OpenWeatherService } from '../services/OpenWeatherService/open-weather.
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-  openWeather: OpenWeather;
+export class AppComponent implements OnInit, OnDestroy {
+  private cities: Array<City>;
+  private openWeather: OpenWeather;
+  private citiesSubscription: Subscription;
 
-  constructor(private openWeatherService: OpenWeatherService) {}
+  constructor(private citiesService: CitiesService, private openWeatherService: OpenWeatherService) {}
 
   ngOnInit() {
-    this.getLocation();
-  }
-
-  getLocation(): void {
+    this.citiesSubscription = this.citiesService.getCities()
+      .subscribe(
+        (data: Array<City>) => {this.cities = data; console.log(this.cities);},
+        (err) => console.error("Error", err)
+      );
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        console.log("Position", position);
-        let longitude = position.coords.longitude;
         let latitude = position.coords.latitude;
+        let longitude = position.coords.longitude;
         this.openWeatherService.getWeatherByCoordinates(latitude, longitude)
           .subscribe(
             (data: OpenWeather) => this.openWeather = data,
@@ -38,12 +43,11 @@ export class AppComponent implements OnInit {
     }
   }
 
-  getWeather(city: String): void {
-    this.openWeatherService.getWeatherByName(city)
-      .subscribe(
-        (data: OpenWeather) => this.openWeather = data,
-        () => console.warn("404"),
-        () => console.log("Weather", this.openWeather)
-      );
+  ngOnDestroy() {
+    this.citiesSubscription.unsubscribe();
+  }
+
+  getWeather(city: string): void {
+    this.citiesService.findCity(city);
   }
 }
