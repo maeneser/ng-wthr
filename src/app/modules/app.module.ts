@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 // Components
 import { AppComponent } from '../components/app.component';
 import { SearchComponent } from '../components/search/search.component';
+import { WeatherComponent } from '../components/weather/weather.component';
 
 // Modules
 import { MaterialModule } from './material.module';
@@ -13,7 +14,8 @@ import { MaterialModule } from './material.module';
 @NgModule({
   declarations: [
     AppComponent,
-    SearchComponent
+    SearchComponent,
+    WeatherComponent
   ],
   imports: [
     BrowserModule,

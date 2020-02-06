@@ -1,17 +1,4 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
-
-// Models
-import {
-  OpenWeather
-} from '../models/OpenWeather/open-weather';
-
-// Services
-import {
-  OpenWeatherService
-} from '../services/OpenWeatherService/open-weather.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -19,21 +6,12 @@ import {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  private openWeather: OpenWeather;
-
-  constructor(private openWeatherService: OpenWeatherService) {}
+  private cities = new Array < number | Array < number > > ();
 
   ngOnInit() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        let latitude = position.coords.latitude;
-        let longitude = position.coords.longitude;
-        this.openWeatherService.getWeatherByCoordinates(latitude, longitude)
-          .subscribe(
-            (data: OpenWeather) => this.openWeather = data,
-            (err) => console.error("Error from service", err),
-            () => console.log("Weather", this.openWeather)
-          );
+        this.cities.push([position.coords.latitude, position.coords.longitude]);
       });
     } else {
       console.log("No support for geolocation");

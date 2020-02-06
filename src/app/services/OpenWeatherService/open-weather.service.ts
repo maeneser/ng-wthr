@@ -13,8 +13,8 @@ export class OpenWeatherService {
 
   constructor(private http: HttpClient) {}
 
-  getWeatherByName(city: string): Observable < OpenWeather > {
-    return this.http.get < OpenWeather > (environment.openWeatherApi + '?q=' + city + '&appid=' + environment.openWeatherApiKey);
+  getWeatherById(id: number): Observable < OpenWeather > {
+    return this.http.get < OpenWeather > (environment.openWeatherApi + '?id=' + id + '&appid=' + environment.openWeatherApiKey);
   }
 
   getWeatherByCoordinates(lat: number, lon: number): Observable < OpenWeather > {
