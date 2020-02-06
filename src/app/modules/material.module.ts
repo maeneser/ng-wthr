@@ -20,4 +20,4 @@ import { MatAutocompleteModule, MatCardModule, MatFormFieldModule, MatInputModul
     MatToolbarModule
   ]
 })
-export class MaterialModule { }
+export class MaterialModule {}

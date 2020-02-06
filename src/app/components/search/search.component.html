@@ -4,12 +4,11 @@
   </mat-card-header>
   <mat-card-content>
     <mat-form-field class="width">
-      <input matInput [matAutocomplete]="auto" placeholder="City">
+      <input #city matInput [matAutocomplete]="auto" placeholder="City" (keyup)="getCity(city.value)">
       <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let state of states" [value]="state.name"> <!-- | async -->
-          <img class="example-option-img" aria-hidden [src]="state.flag" height="25">
-          <span>{{state.name}}</span> |
-          <small>Population: {{state.population}}</small>
+        <mat-option *ngFor="let city of cities | async" [value]="city.id">
+          <span>{{city.name}}</span> |
+          <small>{{city.country}}</small>
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>

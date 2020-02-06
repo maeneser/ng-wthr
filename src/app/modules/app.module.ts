@@ -5,7 +5,6 @@ import { NgModule } from '@angular/core';
 
 // Components
 import { AppComponent } from '../components/app.component';
-import { NavComponent } from '../components/nav/nav.component';
 import { SearchComponent } from '../components/search/search.component';
 
 // Modules
@@ -14,7 +13,6 @@ import { MaterialModule } from './material.module';
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent,
     SearchComponent
   ],
   imports: [
@@ -26,4 +24,4 @@ import { MaterialModule } from './material.module';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
