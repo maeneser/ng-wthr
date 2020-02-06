@@ -2,3 +2,7 @@
   margin: 1% auto;
   max-width: 400px;
 }
+
+.card-content {
+  text-align: center;
+}
