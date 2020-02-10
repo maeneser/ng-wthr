@@ -6,3 +6,9 @@
 .width {
   width: 100%;
 }
+
+.flag {
+  vertical-align: middle;
+  height: 20px;
+  width: 20px;
+}

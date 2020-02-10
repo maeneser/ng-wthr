@@ -5,7 +5,6 @@ import { OpenWeather } from '../../models/OpenWeather/open-weather';
 
 // Services
 import { OpenWeatherService } from '../../services/OpenWeatherService/open-weather.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-weather',
@@ -15,7 +14,8 @@ import { Observable } from 'rxjs';
 export class WeatherComponent implements OnInit {
   @Input() city: number | Array<number> ;
   @Output() deleteCity = new EventEmitter<any>();
-  private openWeather: Observable<OpenWeather>;
+  private openWeather: OpenWeather;
+  private loaded = false;
   private enableDelete = false;
 
   constructor(private openWeatherService: OpenWeatherService) {}
@@ -23,10 +23,22 @@ export class WeatherComponent implements OnInit {
   ngOnInit() {
     if (typeof this.city == "number") {
       this.enableDelete = true;
-      this.openWeather = this.openWeatherService.getWeatherById(this.city);
+      this.openWeatherService.getWeatherById(this.city)
+        .subscribe(
+          (data: OpenWeather) => {
+            this.openWeather = data;
+            this.loaded = true;
+          }
+        );
     }
     else
-      this.openWeather = this.openWeatherService.getWeatherByCoordinates(this.city[0], this.city[1]);
+      this.openWeatherService.getWeatherByCoordinates(this.city[0], this.city[1])
+        .subscribe(
+          (data: OpenWeather) => {
+            this.openWeather = data;
+            this.loaded = true;
+          }
+        );
   }
 
   delete() {

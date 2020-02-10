@@ -1,5 +1,6 @@
 <mat-card class="card">
   <mat-card-header>
+    <i class="material-icons md-18">search</i>
     <mat-card-title>Search</mat-card-title>
   </mat-card-header>
   <mat-card-content>
@@ -8,7 +9,8 @@
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let city of cities | async" (click)="selectCity(city.id)"> <!--  [value]="city.id"  -->
           <span>{{city.name}}</span> |
-          <small>{{city.country}}</small>
+          <small>{{city.country}}</small> -
+          <img class="flag" src="https://www.countryflags.io/{{city.country}}/flat/64.png">
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>

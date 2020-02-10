@@ -1,14 +1,21 @@
-<mat-card class="card">
+<mat-card *ngIf="loaded; else loader" class="card">
   <mat-card-header>
-    <mat-card-title>{{(openWeather | async)?.name}}</mat-card-title>
-    <mat-card-subtitle>{{(openWeather | async)?.sys.country}}</mat-card-subtitle>
+    <mat-card-title>{{openWeather.name}}</mat-card-title>
+    <mat-card-subtitle>
+      <img class="flag" src="https://www.countryflags.io/{{openWeather.sys.country}}/flat/64.png">
+      <span>{{openWeather.sys.country}}</span>
+    </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content class="card-content">
     <h2>[IMAGE]</h2>
-    <p>{{(openWeather | async)?.main.temp}}°</p>
-    <p>{{(openWeather | async)?.weather[0].main}}</p>
+    <p>{{openWeather.main.temp}}°</p>
+    <p>{{openWeather.weather[0].main}}</p>
   </mat-card-content>
   <mat-card-actions>
     <button mat-button *ngIf="enableDelete" color="warn" (click)="delete()">Delete</button>
   </mat-card-actions>
 </mat-card>
+
+<ng-template #loader>
+  <mat-spinner class="loader"></mat-spinner>
+</ng-template>
