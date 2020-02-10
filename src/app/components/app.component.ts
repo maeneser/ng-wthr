@@ -9,12 +9,15 @@ export class AppComponent implements OnInit {
   private cities = new Array < number | Array < number > > ();
 
   ngOnInit() {
-    this.cities.push(3521081);
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.cities.push([position.coords.latitude, position.coords.longitude]);
       });
     }
+  }
+
+  addCity(city: number) {
+    this.cities.push(city);
   }
 
   deleteCity(city: number) {
