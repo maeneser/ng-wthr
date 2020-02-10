@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { SnackBarComponent } from './snack-bar/snack-bar.component';
 
 @Component({
   selector: 'app-root',
@@ -6,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  private cities = new Array < number | Array < number > > ();
+  private cities = new Array <number | Array<number>>();
+
+  constructor(private _snackBar: MatSnackBar) {}
 
   ngOnInit() {
     if (navigator.geolocation) {
@@ -17,7 +22,13 @@ export class AppComponent implements OnInit {
   }
 
   addCity(city: number) {
-    this.cities.push(city);
+    let i = this.cities.indexOf(city);
+    if (i == -1)
+      this.cities.push(city);
+    else
+      this._snackBar.openFromComponent(SnackBarComponent, {
+        duration: 5000
+      });
   }
 
   deleteCity(city: number) {
