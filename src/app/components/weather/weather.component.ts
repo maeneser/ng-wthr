@@ -5,6 +5,7 @@ import { OpenWeather } from '../../models/OpenWeather/open-weather';
 
 // Services
 import { OpenWeatherService } from '../../services/OpenWeatherService/open-weather.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-weather',
@@ -12,30 +13,20 @@ import { OpenWeatherService } from '../../services/OpenWeatherService/open-weath
   styleUrls: ['./weather.component.css']
 })
 export class WeatherComponent implements OnInit {
-  @Input() city: number | Array < number > ;
-  @Output() deleteCity = new EventEmitter < any > ();
+  @Input() city: number | Array<number> ;
+  @Output() deleteCity = new EventEmitter<any>();
+  private openWeather: Observable<OpenWeather>;
   private enableDelete = false;
-  private openWeather: OpenWeather;
 
   constructor(private openWeatherService: OpenWeatherService) {}
 
   ngOnInit() {
     if (typeof this.city == "number") {
       this.enableDelete = true;
-      this.openWeatherService.getWeatherById(this.city)
-      .subscribe(
-        (data: OpenWeather) => this.openWeather = data,
-        (err) => console.error("Error from service", err),
-        () => console.log("Weather", this.openWeather)
-      );
+      this.openWeather = this.openWeatherService.getWeatherById(this.city);
     }
     else
-      this.openWeatherService.getWeatherByCoordinates(this.city[0], this.city[1])
-      .subscribe(
-        (data: OpenWeather) => this.openWeather = data,
-        (err) => console.error("Error from service", err),
-        () => console.log("Weather", this.openWeather)
-      );
+      this.openWeather = this.openWeatherService.getWeatherByCoordinates(this.city[0], this.city[1]);
   }
 
   delete() {
