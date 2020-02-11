@@ -1,2 +1,3 @@
 <app-search (selectedCity)="addCity($event)"></app-search>
+<h4 *ngIf="cities.length == 0">Search a city!</h4>
 <app-weather *ngFor="let city of cities" [city]="city" (deleteCity)="deleteCity($event)"></app-weather>
