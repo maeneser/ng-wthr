@@ -1,18 +1,26 @@
-<mat-card *ngIf="loaded; else loader" class="card">
+<mat-card *ngIf="loaded; else loader" class="card" [ngClass]="openWeather.weather[0].main">
   <mat-card-header>
     <mat-card-title>{{openWeather.name}}</mat-card-title>
     <mat-card-subtitle>
       <img class="flag" src="https://www.countryflags.io/{{openWeather.sys.country}}/flat/64.png">
-      <span>{{openWeather.sys.country}}</span>
     </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content class="card-content">
-    <h2>[IMAGE]</h2>
+    <div [ngSwitch]="openWeather.weather[0].main">
+      <i *ngSwitchCase="'Clear'" class="material-icons md-48">wb_sunny</i>
+      <i *ngSwitchCase="'Clouds'" class="material-icons md-48">wb_cloudy</i>
+      <i *ngSwitchCase="'Mist'" class="material-icons md-48">cloud_circle</i>
+      <i *ngSwitchCase="'Rain'" class="material-icons md-48">grain</i>
+      <i *ngSwitchCase="'Snow'" class="material-icons md-48">grain</i>
+      <i *ngSwitchDefault class="material-icons md-48">broken_image</i>
+    </div>
     <p>{{openWeather.main.temp}}°</p>
-    <p>{{openWeather.weather[0].main}}</p>
+    <p>{{openWeather.weather[0].description}}</p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button *ngIf="enableDelete" color="warn" (click)="delete()">Delete</button>
+    <button mat-button *ngIf="enableDelete" color="warn" (click)="delete()">
+      <i class="material-icons md-48">close</i>
+    </button>
   </mat-card-actions>
 </mat-card>
 

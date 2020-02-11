@@ -17,3 +17,32 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+/* Weather */
+
+.Clear {
+  color: black;
+  background: rgb(214,233,246);
+  background: linear-gradient(0deg, rgba(214,233,246,1) 0%, rgba(108,180,228,1) 100%);
+}
+
+.Clouds {
+  color: black;
+  background: rgb(187,212,221);
+  background: linear-gradient(0deg, rgba(187,212,221,1) 0%, rgba(145,171,184,1) 100%);
+}
+
+.Mist {
+  background: rgb(126,129,138);
+  background: linear-gradient(0deg, rgba(126,129,138,1) 31%, rgba(0,0,0,1) 100%);
+}
+
+.Rain {
+  background: rgb(175,136,119);
+  background: linear-gradient(0deg, rgba(175,136,119,1) 0%, rgba(108,84,84,1) 100%);
+}
+
+.Snow {
+  background: rgb(192,196,200);
+  background: linear-gradient(0deg, rgba(192,196,200,1) 0%, rgba(126,129,138,1) 100%);
+}
