@@ -46,6 +46,11 @@
   background: linear-gradient(0deg, rgba(175, 136, 119, 1) 0%, rgba(108, 84, 84, 1) 100%);
 }
 
+.Smoke {
+  background: rgb(0,0,0);
+  background: linear-gradient(0deg, rgba(0,0,0,1) 70%, rgba(255,0,0,1) 100%);
+}
+
 .Snow {
   background: rgb(192, 196, 200);
   background: linear-gradient(0deg, rgba(192, 196, 200, 1) 0%, rgba(126, 129, 138, 1) 100%);
