@@ -6,6 +6,7 @@ import { City } from '../../models/city';
 
 // Services
 import { CitiesService } from '../../services/CitiesService/cities.service';
+import { WrappedNodeExpr } from '@angular/compiler';
 
 @Component({
   selector: 'app-search',
@@ -14,7 +15,7 @@ import { CitiesService } from '../../services/CitiesService/cities.service';
 })
 export class SearchComponent implements OnInit {
   @Output() selectedCity = new EventEmitter<number>();
-  private cities: Observable < Array < City >> ;
+  private cities: Observable<Array<City>>;
 
   constructor(private citiesService: CitiesService) {}
 
@@ -23,7 +24,7 @@ export class SearchComponent implements OnInit {
   }
 
   getCity(city: string) {
-    this.citiesService.findCity(city);
+    this.citiesService.findCity(city[0].toUpperCase() + city.substr(1));
   }
 
   selectCity(city: number) {
