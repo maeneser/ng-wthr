@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Input, Output } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 // Models
@@ -10,7 +11,18 @@ import { OpenWeatherService } from '../../services/OpenWeatherService/open-weath
 @Component({
   selector: 'app-weather',
   templateUrl: './weather.component.html',
-  styleUrls: ['./weather.component.css']
+  styleUrls: ['./weather.component.css'],
+  animations: [
+    trigger('closing', [
+      state('open', style({
+        opacity: 1
+      })),
+      state('close', style({
+        opacity: 0
+      })),
+      transition('open=>close', animate('500ms'))
+    ]),
+  ]
 })
 export class WeatherComponent implements OnInit {
   @Input() city: number | Array<number> ;
@@ -18,6 +30,7 @@ export class WeatherComponent implements OnInit {
   private openWeather: OpenWeather;
   private loaded = false;
   private enableDelete = false;
+  private currentState = 'open';
 
   constructor(private openWeatherService: OpenWeatherService, private _snackBar: MatSnackBar) {}
 
@@ -55,6 +68,9 @@ export class WeatherComponent implements OnInit {
   }
 
   delete() {
-    this.deleteCity.emit(this.city);
+    this.currentState = 'close';
+    setTimeout(() => {
+      this.deleteCity.emit(this.city);
+    }, 1000);
   }
 }

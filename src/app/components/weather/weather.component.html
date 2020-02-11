@@ -1,4 +1,4 @@
-<mat-card *ngIf="loaded; else loader" class="card" [ngClass]="openWeather.weather[0].main">
+<mat-card *ngIf="loaded; else loader" class="card" [ngClass]="openWeather.weather[0].main" [@closing]="currentState">
   <mat-card-header>
     <mat-card-title>{{openWeather.name}}</mat-card-title>
     <mat-card-subtitle>
