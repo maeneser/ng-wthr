@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { SnackBarComponent } from './snack-bar/snack-bar.component';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -26,7 +24,7 @@ export class AppComponent implements OnInit {
     if (i == -1)
       this.cities.push(city);
     else
-      this._snackBar.openFromComponent(SnackBarComponent, {
+      this._snackBar.open("City already showed", "Close", {
         duration: 5000
       });
   }

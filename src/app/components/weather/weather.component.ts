@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Input, Output } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 // Models
 import { OpenWeather } from '../../models/OpenWeather/open-weather';
@@ -18,7 +19,7 @@ export class WeatherComponent implements OnInit {
   private loaded = false;
   private enableDelete = false;
 
-  constructor(private openWeatherService: OpenWeatherService) {}
+  constructor(private openWeatherService: OpenWeatherService, private _snackBar: MatSnackBar) {}
 
   ngOnInit() {
     if (typeof this.city == "number") {
@@ -28,6 +29,12 @@ export class WeatherComponent implements OnInit {
           (data: OpenWeather) => {
             this.openWeather = data;
             this.loaded = true;
+          },
+          (err) => {
+            this._snackBar.open("Oops, uneable to find city", "Close", {
+              duration: 5000
+            });
+            this.delete();
           }
         );
     }
@@ -37,6 +44,12 @@ export class WeatherComponent implements OnInit {
           (data: OpenWeather) => {
             this.openWeather = data;
             this.loaded = true;
+          },
+          (err) => {
+            this._snackBar.open("Oops, uneable to find city", "Close", {
+              duration: 5000
+            });
+            this.delete();
           }
         );
   }
